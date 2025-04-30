@@ -23,3 +23,22 @@ services:
       - 8080:80
     volumes:
       - ./static:/usr/share/nginx/html
+  postgis:
+    image: kartoza/postgis:16-3.4
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASS=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgis_data:/var/lib/postgresql
+      - ./postgis-init/:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+volumes:
+  postgis_data:
+    driver: local
