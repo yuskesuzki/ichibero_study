@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>My Web Page</title>
+        <script src="https://unpkg.com/maplibre-gl@^4.0/dist/maplibre-gl.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/maplibre-gl@^4.0/dist/maplibre-gl.css"
+        />
+    </head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            positoin: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <body>
+        <div id="map" style="height: 100vh"></div>
+        <script>
+            const map = new maplibregl.Map(
+                {
+                    hash: true,
+                    container: "map",
+                    style: {
+                        version: 8,
+                        sources: {
+                            gslstd: {
+                                type: "raster",
+                                tiles: [
+                                    "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png",
+                                ],
+                                tileSize: 256,
+                                attribution: '地理院タイル'
+                            },
+                            raster: {
+                                type: "raster",
+                                tiles: [
+                                    "http://localhost:3000/tiles/{z}/{x}/{y}.png",
+                                ],
+                                tileSize: 256,
+                                attribution: 'ゼルダTotK地上地図'
+                            },
+                        },
+                        layers: [
+                            {
+                                id: "gslstd",
+                                type: "raster",
+                                source: "gslstd",
+                                minzoom: 0,
+                                maxzoom: 18,
+                            },
+                            {
+                                id: "raster",
+                                type: "raster",
+                                source: "raster",
+                                minzoom: 0,
+                                maxzoom: 18,
+                            },
+                        ],
+                    },
+                }
+            );
+            map.showTileBoundaries = true;
+        </script>
+    </body>
+</html>
