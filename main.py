@@ -7,8 +7,6 @@ import psycopg2.pool
 import json
 
 from app.models import PointsOfMapCreate, PointsOfMapUpdate
-# from app.model import PoiCreate, PoiUpdate
-
 
 app = FastAPI()
 
@@ -127,7 +125,7 @@ def create_poi(data:PointsOfMapCreate, conn=Depends(get_connection)):
             INSERT INTO points_of_map (name, level, poi_type, geom, description)
             VALUES (%s, %s, %s, ST_SetSRID(ST_MakePoint(%s, %s), 4326), %s)
             """,
-            (data.name, data.level, data.poi_type, data.latitude, data.longitude, data.description),
+            (data.name, data.level, data.poi_type, data.longitude, data.latitude, data.description),
         )
         conn.commit()
 

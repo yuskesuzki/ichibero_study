@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS points_of_map (
     name VARCHAR(255) NOT NULL,
     level INT NOT NULL,
     poi_type INT NOT NULL,
-    geom GEOMETRY(Point, 4326) NOT NULL,
-    description VARCHAR(255) NULL
+    description VARCHAR(255) NULL,
+    geom GEOMETRY(POINT, 4326) NOT NULL
 );
 
 -- Compare this snippet from postgis-init/01-setup.sql:
